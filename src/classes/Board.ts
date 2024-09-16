@@ -29,6 +29,10 @@ export default class Board {
     return this.#cols;
   }
 
+  get BOARD() {
+    return this.#board;
+  }
+  
   get validColumns() {
     const validColumns: number[] = [];
     this.#board[0].forEach((_col, i) => {
