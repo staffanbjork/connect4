@@ -62,4 +62,8 @@ export default class Board {
   set undoMove(move: Move) {
     this.#board[move.row][move.col] = null;
   }
+
+  getPointOfPosition(move: Move) {
+    return this.#pointOfPosition[move.row][move.col];
+  }
 }
