@@ -53,4 +53,8 @@ export default class Board {
   makeMove(board: Matrix, move: Move, player: number) {
     board[move.row][move.col] = player;
   }
+
+  undoMove(board: Matrix, move: Move) {
+    board[move.row][move.col] = null;
+  }
 }
