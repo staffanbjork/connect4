@@ -1,7 +1,5 @@
+import { Matrix, Move, MakeMove } from "../types/types";
 
-type Matrix = (number | null)[][];
-type Move = { row: number, col: number };
-type MakeMove = { row: number, col: number, player: number };
 export default class Board {
   #rows: number;
   #cols: number;
