@@ -39,10 +39,10 @@ export default class Board {
     return validColumns;
   }
 
-  getValidMoves(board: Matrix) {
-    const validMoves = this.getValidColumns(board).forEach((_col, i) => {
+  get validMoves() {
+    const validMoves = this.validColumns.forEach((_col, i) => {
       for (let row = this.ROWS - 1; row >= 0; row--) {
-        if (!board[row][i]) {
+        if (!this.BOARD[row][i]) {
           return { row: row, col: i };
         }
       }
