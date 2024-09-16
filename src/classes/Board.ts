@@ -1,6 +1,8 @@
 
 type Matrix = (number | null)[][];
 type Move = { row: number, col: number };
+type MakeMove = { row: number, col: number, player: number };
+
 export default class Board {
   #rows: number;
   #cols: number;
@@ -32,7 +34,7 @@ export default class Board {
   get BOARD() {
     return this.#board;
   }
-  
+
   get validColumns() {
     const validColumns: number[] = [];
     this.#board[0].forEach((_col, i) => {
@@ -54,8 +56,8 @@ export default class Board {
     return validMoves;
   }
 
-  makeMove(board: Matrix, move: Move, player: number) {
-    board[move.row][move.col] = player;
+  set makeMove(move: MakeMove) {
+    this.#board[move.row][move.col] = move.player;
   }
 
   undoMove(board: Matrix, move: Move) {
