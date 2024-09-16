@@ -2,7 +2,6 @@
 type Matrix = (number | null)[][];
 type Move = { row: number, col: number };
 type MakeMove = { row: number, col: number, player: number };
-
 export default class Board {
   #rows: number;
   #cols: number;
@@ -60,7 +59,7 @@ export default class Board {
     this.#board[move.row][move.col] = move.player;
   }
 
-  undoMove(board: Matrix, move: Move) {
-    board[move.row][move.col] = null;
+  set undoMove(move: Move) {
+    this.#board[move.row][move.col] = null;
   }
 }
