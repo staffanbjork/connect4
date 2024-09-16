@@ -5,7 +5,7 @@ export default class Board {
   #rows: number;
   #cols: number;
   #pointOfPosition: number[][];
-  board: Matrix;
+  #board: Matrix;
 
   constructor() {
     this.#rows = 6;
@@ -18,7 +18,7 @@ export default class Board {
       [4, 6, 8, 10, 8, 6, 4],
       [3, 4, 5, 7, 5, 4, 3],
     ];
-    this.board = Array(this.#rows).fill(Array(this.#cols).fill(null));
+    this.#board = Array(this.#rows).fill(Array(this.#cols).fill(null));
   }
 
   get ROWS() {
@@ -29,10 +29,10 @@ export default class Board {
     return this.#cols;
   }
 
-  getValidColumns(board: Matrix) {
+  get validColumns() {
     const validColumns: number[] = [];
-    board[0].forEach((_col, i) => {
-      if (!board[0][i]) {
+    this.#board[0].forEach((_col, i) => {
+      if (!this.#board[0][i]) {
         validColumns.push(i);
       }
     });
