@@ -11,11 +11,11 @@ export default class Board {
     this.board = Array(this.#rows).fill(Array(this.#cols).fill(null));
   }
 
-  get rows() {
+  get ROWS() {
     return this.#rows;
   }
 
-  get cols() {
+  get COLS() {
     return this.#cols;
   }
 }
