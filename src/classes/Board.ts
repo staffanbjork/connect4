@@ -10,4 +10,12 @@ export default class Board {
     this.#cols = 7;
     this.board = Array(this.#rows).fill(Array(this.#cols).fill(null));
   }
+
+  get rows() {
+    return this.#rows;
+  }
+
+  get cols() {
+    return this.#cols;
+  }
 }
