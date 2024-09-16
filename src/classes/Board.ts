@@ -27,4 +27,10 @@ export default class Board {
   get COLS() {
     return this.#cols;
   }
+
+  getValidColumns(board: Matrix) {
+    return board[0].forEach((_col, i) => {
+      if(!board[0][i]){ return i }
+    })
+  }
 }
