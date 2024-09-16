@@ -1,5 +1,6 @@
 
 type Matrix = (number | null)[][];
+type Move = { row: number, col: number };
 export default class Board {
   #rows: number;
   #cols: number;
@@ -47,5 +48,9 @@ export default class Board {
       }
     });
     return validMoves;
+  }
+
+  makeMove(board: Matrix, move: Move, player: number) {
+    board[move.row][move.col] = player;
   }
 }
