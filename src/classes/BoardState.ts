@@ -34,7 +34,16 @@ export default class BoardState {
     });
     return validColumns;
   }
-  
+  get validMoves() {
+    const validMoves = this.validColumns.forEach((_col, i) => {
+      for (let row = this.ROWS - 1; row >= 0; row--) {
+        if (!this.BOARD[row][i]) {
+          return { row: row, col: i };
+        }
+      }
+    });
+    return validMoves;
+  }
   checkForWinner(board: Matrix) {
     for (const player of this.PLAYERS) {
       // Horizontal
