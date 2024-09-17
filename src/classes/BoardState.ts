@@ -44,13 +44,13 @@ export default class BoardState {
     });
     return validMoves;
   }
-  checkForWinner(board: Matrix) {
+  get isWinner() {
     for (const player of this.PLAYERS) {
       // Horizontal
       for (let row = 0; row < this.ROWS; row++) {
         for (let col = 0; col < this.COLS - 3; col++) {
           if (
-            board[row].slice(col, col + 4).every((column) => column === player)
+            this.BOARD[row].slice(col, col + 4).every((column) => column === player)
           ) {
             return player;
           }
@@ -59,7 +59,7 @@ export default class BoardState {
       // Vertical
       for (let col = 0; col < this.COLS; col++) {
         for (let row = 0; row < this.ROWS - 3; row++) {
-          if ([0, 1, 2, 3].every((r) => board[row + r][col] === player)) {
+          if ([0, 1, 2, 3].every((r) => this.BOARD[row + r][col] === player)) {
             return player;
           }
         }
@@ -69,7 +69,7 @@ export default class BoardState {
         for (let col = 0; col < this.COLS - 3; col++) {
           if (
             [0, 1, 2, 3].every(
-              (offset) => board[row + offset][col + offset] === player
+              (offset) => this.BOARD[row + offset][col + offset] === player
             )
           ) {
             return player;
@@ -81,13 +81,16 @@ export default class BoardState {
         for (let col = 3; col < this.COLS; col++) {
           if (
             [0, 1, 2, 3].every(
-              (offset) => board[row + offset][col - offset] === player
+              (offset) => this.BOARD[row + offset][col - offset] === player
             )
           ) {
             return player;
           }
         }
       }
+    }
+    if (this.validColumns.length === 0) {
+      return "DRAW";
     }
     return false;
   }
