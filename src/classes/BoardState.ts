@@ -1,28 +1,39 @@
-import { Rows, Cols, MaxMoves, Player, Matrix } from "../types/types";
+import { Rows, Cols, Player, Matrix } from "../types/types";
 
 export default class BoardState {
+  #BOARD: Matrix;
   #ROWS: Rows;
   #COLS: Cols;
-  #MAX_NUMBER_OF_TURNS: MaxMoves;
   #PLAYERS: Player[];
 
   constructor(
+    board: Matrix,
     rows: Rows,
     cols: Cols,
-    maxNumberOfTurns: MaxMoves,
-    players: Player[]
   ) {
+    this.#BOARD = board;
     this.#ROWS = rows;
     this.#COLS = cols;
-    this.#MAX_NUMBER_OF_TURNS = maxNumberOfTurns;
-    this.#PLAYERS = players;
+    this.#PLAYERS = [1, 2];
+  }
+  get BOARD() {
+    return this.#BOARD;
+  }
+  get ROWS() {
+    return this.#ROWS;
+  }
+  get COLS() {
+    return this.#COLS;
+  }
+  get PLAYERS() {
+    return this.#PLAYERS;
   }
 
   checkForWinner(board: Matrix) {
-    for (const player of this.#PLAYERS) {
+    for (const player of this.PLAYERS) {
       // Horizontal
-      for (let row = 0; row < this.#ROWS; row++) {
-        for (let col = 0; col < this.#COLS - 3; col++) {
+      for (let row = 0; row < this.ROWS; row++) {
+        for (let col = 0; col < this.COLS - 3; col++) {
           if (
             board[row].slice(col, col + 4).every((column) => column === player)
           ) {
@@ -31,16 +42,16 @@ export default class BoardState {
         }
       }
       // Vertical
-      for (let col = 0; col < this.#COLS; col++) {
-        for (let row = 0; row < this.#ROWS - 3; row++) {
+      for (let col = 0; col < this.COLS; col++) {
+        for (let row = 0; row < this.ROWS - 3; row++) {
           if ([0, 1, 2, 3].every((r) => board[row + r][col] === player)) {
             return player;
           }
         }
       }
       // Positively sloped diagonals
-      for (let row = 0; row < this.#ROWS - 3; row++) {
-        for (let col = 0; col < this.#COLS - 3; col++) {
+      for (let row = 0; row < this.ROWS - 3; row++) {
+        for (let col = 0; col < this.COLS - 3; col++) {
           if (
             [0, 1, 2, 3].every(
               (offset) => board[row + offset][col + offset] === player
@@ -51,8 +62,8 @@ export default class BoardState {
         }
       }
       // Negatively sloped diaginals
-      for (let row = 0; row < this.#ROWS - 3; row++) {
-        for (let col = 3; col < this.#COLS; col++) {
+      for (let row = 0; row < this.ROWS - 3; row++) {
+        for (let col = 3; col < this.COLS; col++) {
           if (
             [0, 1, 2, 3].every(
               (offset) => board[row + offset][col - offset] === player
