@@ -1,6 +1,6 @@
 import { Rows, Cols, MaxMoves, Player, Matrix } from "../types/types";
 
-export default class BoardCheck {
+export default class BoardState {
   #ROWS: Rows;
   #COLS: Cols;
   #MAX_NUMBER_OF_TURNS: MaxMoves;
