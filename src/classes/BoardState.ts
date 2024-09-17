@@ -6,11 +6,7 @@ export default class BoardState {
   #COLS: Cols;
   #PLAYERS: Player[];
 
-  constructor(
-    board: Matrix,
-    rows: Rows,
-    cols: Cols,
-  ) {
+  constructor(board: Matrix, rows: Rows, cols: Cols) {
     this.#BOARD = board;
     this.#ROWS = rows;
     this.#COLS = cols;
@@ -29,6 +25,16 @@ export default class BoardState {
     return this.#PLAYERS;
   }
 
+  get validColumns() {
+    const validColumns: number[] = [];
+    this.BOARD[0].forEach((_col, i) => {
+      if (!this.BOARD[0][i]) {
+        validColumns.push(i);
+      }
+    });
+    return validColumns;
+  }
+  
   checkForWinner(board: Matrix) {
     for (const player of this.PLAYERS) {
       // Horizontal
