@@ -1,10 +1,12 @@
 import { Matrix, Move, MakeMove } from "../types/types";
+import BoardState from "./BoardState";
 
 export default class Board {
   #rows: number;
   #cols: number;
   #pointOfPosition: number[][];
   #board: Matrix;
+  #boardState: BoardState;
 
   constructor() {
     this.#rows = 6;
@@ -18,6 +20,7 @@ export default class Board {
       [3, 4, 5, 7, 5, 4, 3],
     ];
     this.#board = Array(this.#rows).fill(Array(this.#cols).fill(null));
+    this.#boardState = new BoardState(this.BOARD, this.ROWS, this.COLS);
   }
 
   get ROWS() {
@@ -32,25 +35,8 @@ export default class Board {
     return this.#board;
   }
 
-  get validColumns() {
-    const validColumns: number[] = [];
-    this.#board[0].forEach((_col, i) => {
-      if (!this.#board[0][i]) {
-        validColumns.push(i);
-      }
-    });
-    return validColumns;
-  }
-
-  get validMoves() {
-    const validMoves = this.validColumns.forEach((_col, i) => {
-      for (let row = this.ROWS - 1; row >= 0; row--) {
-        if (!this.BOARD[row][i]) {
-          return { row: row, col: i };
-        }
-      }
-    });
-    return validMoves;
+  get BOARD_STATE() {
+    return this.#boardState;
   }
 
   set makeMove(move: MakeMove) {
