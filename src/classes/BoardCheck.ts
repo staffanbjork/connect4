@@ -1,4 +1,4 @@
-import { Rows, Cols, MaxMoves, Player } from "../types/types";
+import { Rows, Cols, MaxMoves, Player, Matrix } from "../types/types";
 
 export default class BoardCheck {
   #ROWS: Rows;
@@ -6,10 +6,10 @@ export default class BoardCheck {
   #MAX_NUMBER_OF_TURNS: MaxMoves;
   #PLAYERS: Player[];
 
-  constructor() {
-    this.#ROWS = 6;
-    this.#COLS = 7;
-    this.#MAX_NUMBER_OF_TURNS = 42;
-    this.#PLAYERS = [1, 2]
+  constructor(rows: Rows, cols: Cols, maxNumberOfTurns: MaxMoves, players: Player[]) {
+    this.#ROWS = rows;
+    this.#COLS = cols;
+    this.#MAX_NUMBER_OF_TURNS = maxNumberOfTurns;
+    this.#PLAYERS = players;
   }
 }
