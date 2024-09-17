@@ -50,7 +50,9 @@ export default class BoardState {
       for (let row = 0; row < this.ROWS; row++) {
         for (let col = 0; col < this.COLS - 3; col++) {
           if (
-            this.BOARD[row].slice(col, col + 4).every((column) => column === player)
+            this.BOARD[row]
+              .slice(col, col + 4)
+              .every((column) => column === player)
           ) {
             return player;
           }
@@ -93,5 +95,75 @@ export default class BoardState {
       return "DRAW";
     }
     return false;
+  }
+
+  evaluatePosition(player: number, length: number) {
+    let count = 0;
+    // Horizontal
+    for (let row = 0; row < this.ROWS; row++) {
+      for (let col = 0; col <= this.COLS - length; col++) {
+        const arr = [];
+        for (let i = 0; i < length; i++) {
+          arr.push(this.BOARD[row][col + i]);
+        }
+        if (arr.every((cell) => cell === player)) {
+          count++;
+        }
+      }
+    }
+    // Vertical
+    for (let col = 0; col < this.COLS; col++) {
+      for (let row = this.ROWS - 1; row >= length - 1; row--) {
+        const arr = [];
+        for (let i = 0; i < length; i++) {
+          arr.push(this.BOARD[row - i][col]);
+        }
+        if (arr.includes(null)) {
+          break;
+        }
+        if (arr.every((cell) => cell === player)) {
+          count++;
+        }
+      }
+    }
+    // Positively sloped diagonal
+    for (let row = 0; row <= this.ROWS - length; row++) {
+      for (let col = 0; col <= this.COLS - length; col++) {
+        const arr = [];
+        for (let i = 0; i < length; i++) {
+          arr.push(this.BOARD[row + i][col + i]);
+        }
+        if (arr.every((element) => element === player)) {
+          count++;
+        }
+      }
+    }
+    // Negatively sloped diagonal
+    for (let row = 0; row <= this.ROWS - length; row++) {
+      for (let col = this.COLS - 1; col >= length - 1; col--) {
+        const arr = [];
+        for (let i = 0; i < length; i++) {
+          arr.push(this.BOARD[row + i][col - i]);
+        }
+        if (arr.every((element) => element === player)) {
+          count++;
+        }
+      }
+    }
+    return count;
+  }
+
+  evaluateBoard(player: number) {
+    const opponent = 3 - player;
+    let score = 0;
+    score +=
+      this.evaluatePosition(player, 2) * 2 +
+      this.evaluatePosition(player, 3) * 5 +
+      this.evaluatePosition(player, 4) * 1000;
+    score -=
+      this.evaluatePosition(opponent, 2) * 2 +
+      this.evaluatePosition(opponent, 3) * 5 +
+      this.evaluatePosition(opponent, 4) * 1000;
+    return score;
   }
 }
