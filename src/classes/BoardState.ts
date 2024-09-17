@@ -1,12 +1,12 @@
-import { Rows, Cols, Player, Matrix } from "../types/types";
+import { Player, Matrix } from "../types/types";
 
 export default class BoardState {
   #BOARD: Matrix;
-  #ROWS: Rows;
-  #COLS: Cols;
+  #ROWS: number;
+  #COLS: number;
   #PLAYERS: Player[];
 
-  constructor(board: Matrix, rows: Rows, cols: Cols) {
+  constructor(board: Matrix, rows: number, cols: number) {
     this.#BOARD = board;
     this.#ROWS = rows;
     this.#COLS = cols;
